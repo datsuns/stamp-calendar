@@ -59,19 +59,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget generateMainView() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          'You have pushed the button this many times:',
+    return Container(
+      decoration: BoxDecoration(border: Border.all(
+          color: Colors.red,
+          width: 8.0,
+          ),
         ),
-        Text(
-          '$_counter',
-          style: Theme.of(context).textTheme.display1,
-        ),
-        generateOneLine(),
-        generateOneLine(),
-      ],
+
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'You have pushed the button this many times:',
+          ),
+          Text(
+            '$_counter',
+            style: Theme.of(context).textTheme.display1,
+          ),
+          generateOneLine(),
+          generateOneLine(),
+        ],
+      )
     );
   }
 
