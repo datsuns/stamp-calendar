@@ -48,19 +48,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  var _dayBody = <Widget>[
-      Center( child: Text('1') ),
-      Icon(Icons.check_box),
-  ];
-  Map<int, List<Widget>> _dayAll = {};
+
 
   Widget generateOneDay(BuildContext context, int day) {
-    var b = List<Widget>();
-    b.add(Center( child:Text(day.toString())));
-
-    this._dayAll[day] = b;
-    //var c = Column( children: this._dayArray[day].Body() );
-    var c = Column( children: this._dayAll[day] );
+    var c = Center(child:Text(day.toString()));
 
     var body = Container(
         decoration: BoxDecoration(border: Border.all(
@@ -76,11 +67,25 @@ class _MyHomePageState extends State<MyHomePage> {
         setState(() {
           print("day ${day} pushed");
           _counter++;
-          this._dayAll[day].add(Icon(Icons.add));
         });
       },
 
       child: body,
+    );
+  }
+
+  Widget generateWeekTitle(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Expanded( child: Center( child: Text("日"), ) ),
+        Expanded( child: Center( child: Text("月"), ) ),
+        Expanded( child: Center( child: Text("火"), ) ),
+        Expanded( child: Center( child: Text("水"), ) ),
+        Expanded( child: Center( child: Text("木"), ) ),
+        Expanded( child: Center( child: Text("金"), ) ),
+        Expanded( child: Center( child: Text("土"), ) ),
+      ],
     );
   }
 
@@ -121,6 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
             '$_counter',
             style: Theme.of(context).textTheme.display1,
           ),
+          Expanded( child: generateWeekTitle(context) ),
           Expanded( child: generateOneWeek(context, 1) ),
           Expanded( child: generateOneWeek(context, 8) ),
           Expanded( child: generateOneWeek(context, 15) ),
