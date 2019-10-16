@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Column(
         children: <Widget>[
           Text('item1'),
-          Icon(Icons.add),
+          Icon(Icons.check_box),
         ],
       ),
     );
