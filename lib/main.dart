@@ -59,6 +59,18 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Widget generateEmptyDay(BuildContext context) {
+    var c = ListTile(
+      title: Text(""),
+    );
+    var body = Container(
+        child: Column(
+          children: <Widget>[c],
+        ),
+    );
+    return body;
+  }
+
   Widget generateOneDay(BuildContext context, int day) {
     var c = ListTile(
       title: Text(day.toString()),
@@ -97,7 +109,17 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget generateOneWeek(BuildContext context, int start) {
+  Widget generateOneWeek(BuildContext context, int start, int offset) {
+    var empty = offset;
+    var valid = 7 - offset;
+    print("gen ${start} w/ ${empty}, valid ${valid}");
+    var body = List<Widget>();
+    for( var i = 0; i < offset; i++ ){
+      body.add( Expanded( child: generateEmptyDay(context)) );
+    }
+    for( var i = 0; i < valid; i++ ){
+      body.add( Expanded( child: generateOneDay(context, start + i) ) );
+    }
     return Container(
       decoration: BoxDecoration(border: Border.all(
           color: Colors.green,
@@ -106,36 +128,30 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Expanded( child: generateOneDay(context, start + 0) ),
-          Expanded( child: generateOneDay(context, start + 1) ),
-          Expanded( child: generateOneDay(context, start + 2) ),
-          Expanded( child: generateOneDay(context, start + 3) ),
-          Expanded( child: generateOneDay(context, start + 4) ),
-          Expanded( child: generateOneDay(context, start + 5) ),
-          Expanded( child: generateOneDay(context, start + 6) ),
-        ],
-      ),
+        children: body,
+        ),
     );
   }
 
-  Widget generateMainView(BuildContext context) {
+  Widget generateMainView(BuildContext context, int month, int lastDay, int weekday) {
+    print("m ${month} l ${lastDay} w ${weekday}");
+    var secondStart = 7 - weekday;
     return Container(
-      decoration: BoxDecoration(border: Border.all(
-          color: Colors.red,
-          width: 3.0,
-          ),
-        ),
+      //decoration: BoxDecoration(border: Border.all(
+      //    color: Colors.red,
+      //    width: 1.0,
+      //    ),
+      //  ),
 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Expanded( child: generateWeekTitle(context) ),
-          Expanded( child: generateOneWeek(context, 1) ),
-          Expanded( child: generateOneWeek(context, 8) ),
-          Expanded( child: generateOneWeek(context, 15) ),
-          Expanded( child: generateOneWeek(context, 22) ),
-          Expanded( child: generateOneWeek(context, 29) ),
+          Expanded( child: generateOneWeek(context, 1, weekday) ),
+          Expanded( child: generateOneWeek(context, 8, 0) ),
+          Expanded( child: generateOneWeek(context, 15, 0) ),
+          Expanded( child: generateOneWeek(context, 22, 0) ),
+          Expanded( child: generateOneWeek(context, 29, 0) ),
         ],
       )
     );
@@ -143,11 +159,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final first = new DateTime(now.year, now.month, 1);
+    final last = new DateTime(now.year, now.month + 1, 0);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: generateMainView(context),
+      body: generateMainView(context, first.month, last.day, first.weekday),
     );
   }
 }
