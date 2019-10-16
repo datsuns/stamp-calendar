@@ -47,31 +47,32 @@ class MyHomePage extends StatefulWidget {
 
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  var _done = Map<int, bool>() ;
 
+  @override
+  void initState() {
+    super.initState();
+    for( var i = 0; i < 31; i++ ){
+      this._done[i] = false;
+    }
+  }
 
   Widget generateOneDay(BuildContext context, int day) {
-    var c = Center(child:Text(day.toString()));
+    var c = ListTile(
+      title: Text(day.toString()),
+      onLongPress: () {
+        setState(() {
+          this._done[day] = this._done[day] == true ? false : true;
+        });
+      }
+    );
 
     var body = Container(
-        decoration: BoxDecoration(border: Border.all(
-            color: Colors.blue,
-            width: 2.0,
-          ),
-        ),
+        color: this._done[day] == true ? Colors.green : Colors.red,
         child: c,
         );
 
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          print("day ${day} pushed");
-          _counter++;
-        });
-      },
-
-      child: body,
-    );
+    return body;
   }
 
   Widget generateWeekTitle(BuildContext context) {
@@ -93,7 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       decoration: BoxDecoration(border: Border.all(
           color: Colors.green,
-          width: 2.0,
+          width: 1.0,
         ),
       ),
       child: Row(
@@ -115,17 +116,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       decoration: BoxDecoration(border: Border.all(
           color: Colors.red,
-          width: 8.0,
+          width: 3.0,
           ),
         ),
 
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Text(
-            '$_counter',
-            style: Theme.of(context).textTheme.display1,
-          ),
           Expanded( child: generateWeekTitle(context) ),
           Expanded( child: generateOneWeek(context, 1) ),
           Expanded( child: generateOneWeek(context, 8) ),
@@ -137,43 +134,15 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    print("hello");
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: generateMainView(context),
       ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
