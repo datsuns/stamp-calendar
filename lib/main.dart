@@ -67,10 +67,14 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     );
 
+    var icon = this._done[day] == true ? Icon(Icons.check) : Icon(Icons.add);
+
     var body = Container(
         color: this._done[day] == true ? Colors.green : Colors.red,
-        child: c,
-        );
+        child: Column(
+          children: <Widget>[c, icon],
+        ),
+    );
 
     return body;
   }
