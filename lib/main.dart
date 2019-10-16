@@ -1,4 +1,6 @@
-// [ ]are Row and Column decoratable or not
+// [ ]save date implement
+//    - Month-related data structure
+//    - save and load
 
 import 'package:flutter/material.dart';
 
@@ -67,10 +69,11 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     );
 
-    var icon = this._done[day] == true ? Icon(Icons.check) : Icon(Icons.add);
+    var icon = this._done[day] == true ? Icon(Icons.check) : Container();
+    var col  = this._done[day] == true ? Colors.lightGreenAccent[400] : Colors.transparent;
 
     var body = Container(
-        color: this._done[day] == true ? Colors.green : Colors.red,
+        color: col,
         child: Column(
           children: <Widget>[c, icon],
         ),
