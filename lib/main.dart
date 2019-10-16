@@ -1,3 +1,5 @@
+// [ ]are Row and Column decoratable or not
+
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
