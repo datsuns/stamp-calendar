@@ -3,6 +3,7 @@
 //    - save and load
 
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 void main() => runApp(MyApp());
 
@@ -109,16 +110,21 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget generateOneWeek(BuildContext context, int start, int offset) {
-    var empty = offset;
-    var valid = 7 - offset;
-    print("gen ${start} w/ ${empty}, valid ${valid}");
+  Widget generateOneWeek(BuildContext context, int start, int last, int offset) {
+    var remain = last - start;
+    var valid = math.min(7, remain);
+    var topPadding = offset;
+    var footPadding = 7 - valid;
+    print("gen ${start} w/ ${valid} days, padd:${topPadding},${footPadding}");
     var body = List<Widget>();
-    for( var i = 0; i < offset; i++ ){
+    for( var i = 0; i < topPadding; i++ ){
       body.add( Expanded( child: generateEmptyDay(context)) );
     }
     for( var i = 0; i < valid; i++ ){
       body.add( Expanded( child: generateOneDay(context, start + i) ) );
+    }
+    for( var i = 0; i < footPadding; i++ ){
+      body.add( Expanded( child: generateEmptyDay(context)) );
     }
     return Container(
       decoration: BoxDecoration(border: Border.all(
@@ -147,11 +153,11 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Expanded( child: generateWeekTitle(context) ),
-          Expanded( child: generateOneWeek(context, 1, weekday) ),
-          Expanded( child: generateOneWeek(context, 8, 0) ),
-          Expanded( child: generateOneWeek(context, 15, 0) ),
-          Expanded( child: generateOneWeek(context, 22, 0) ),
-          Expanded( child: generateOneWeek(context, 29, 0) ),
+          Expanded( child: generateOneWeek(context, 1,  lastDay, weekday) ),
+          Expanded( child: generateOneWeek(context, 8,  lastDay, 0) ),
+          Expanded( child: generateOneWeek(context, 15, lastDay, 0) ),
+          Expanded( child: generateOneWeek(context, 22, lastDay, 0) ),
+          Expanded( child: generateOneWeek(context, 29, lastDay, 0) ),
         ],
       )
     );
