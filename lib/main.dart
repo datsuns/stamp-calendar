@@ -49,18 +49,22 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   Widget generateOneDay() {
-    return Container(
-      decoration: BoxDecoration(border: Border.all(
-          color: Colors.blue,
-          width: 2.0,
-        ),
-      ),
+    return GestureDetector(
+      onTap: () { print("hello"); },
 
-      child: Column(
-        children: <Widget>[
-          Text('item1'),
-          Icon(Icons.check_box),
-        ],
+      child: Container(
+        decoration: BoxDecoration(border: Border.all(
+            color: Colors.blue,
+            width: 2.0,
+          ),
+        ),
+
+        child: Column(
+          children: <Widget>[
+            Text('item1'),
+            Icon(Icons.check_box),
+          ],
+        ),
       ),
     );
   }
