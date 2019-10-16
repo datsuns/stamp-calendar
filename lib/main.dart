@@ -45,36 +45,47 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  var _dayBody = <Widget>[
+      Center( child: Text('1') ),
+      Icon(Icons.check_box),
+  ];
+  Map<int, List<Widget>> _dayAll = {};
 
-  Widget generateOneDay() {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          print("hello");
-          _counter++;
-        });
-      },
+  Widget generateOneDay(BuildContext context, int day) {
+    var b = List<Widget>();
+    b.add(Text(day.toString()));
+    b.add(Icon(Icons.check_box));
 
-      child: Container(
+    this._dayAll[day] = b;
+    //var c = Column( children: this._dayArray[day].Body() );
+    var c = Column( children: this._dayAll[day] );
+
+    var body = Container(
         decoration: BoxDecoration(border: Border.all(
             color: Colors.blue,
             width: 2.0,
           ),
         ),
+        child: c,
+        );
 
-        child: Column(
-          children: <Widget>[
-            Text('item1'),
-            Icon(Icons.check_box),
-          ],
-        ),
-      ),
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          print("day ${day} pushed");
+          _counter++;
+          this._dayAll[day].add(Icon(Icons.add));
+        });
+      },
+
+      child: body,
     );
   }
 
-  Widget generateOneWeek() {
+  Widget generateOneWeek(BuildContext context, int start) {
     return Container(
       decoration: BoxDecoration(border: Border.all(
           color: Colors.green,
@@ -84,19 +95,19 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          generateOneDay(),
-          generateOneDay(),
-          generateOneDay(),
-          generateOneDay(),
-          generateOneDay(),
-          generateOneDay(),
-          generateOneDay(),
+          generateOneDay(context, start + 0),
+          generateOneDay(context, start + 1),
+          generateOneDay(context, start + 2),
+          generateOneDay(context, start + 3),
+          generateOneDay(context, start + 4),
+          generateOneDay(context, start + 5),
+          generateOneDay(context, start + 6),
         ],
       ),
     );
   }
 
-  Widget generateMainView() {
+  Widget generateMainView(BuildContext context) {
     return Container(
       decoration: BoxDecoration(border: Border.all(
           color: Colors.red,
@@ -111,10 +122,11 @@ class _MyHomePageState extends State<MyHomePage> {
             '$_counter',
             style: Theme.of(context).textTheme.display1,
           ),
-          generateOneWeek(),
-          generateOneWeek(),
-          generateOneWeek(),
-          generateOneWeek(),
+          generateOneWeek(context, 1),
+          generateOneWeek(context, 8),
+          generateOneWeek(context, 15),
+          generateOneWeek(context, 22),
+          generateOneWeek(context, 29),
         ],
       )
     );
@@ -133,6 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print("hello");
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -148,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: generateMainView(),
+        child: generateMainView(context),
       ),
 
       floatingActionButton: FloatingActionButton(
