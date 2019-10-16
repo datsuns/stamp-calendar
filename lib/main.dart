@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Column(
         children: <Widget>[
           Text('item1'),
-          Text('item2'),
+          Icon(Icons.add),
         ],
       ),
     );
@@ -75,6 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          generateOneDay(),
+          generateOneDay(),
+          generateOneDay(),
           generateOneDay(),
           generateOneDay(),
           generateOneDay(),
