@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget generateOneLine() {
+  Widget generateOneWeek() {
     return Container(
       decoration: BoxDecoration(border: Border.all(
           color: Colors.green,
@@ -99,10 +99,10 @@ class _MyHomePageState extends State<MyHomePage> {
             '$_counter',
             style: Theme.of(context).textTheme.display1,
           ),
-          generateOneLine(),
-          generateOneLine(),
-          generateOneLine(),
-          generateOneLine(),
+          generateOneWeek(),
+          generateOneWeek(),
+          generateOneWeek(),
+          generateOneWeek(),
         ],
       )
     );
