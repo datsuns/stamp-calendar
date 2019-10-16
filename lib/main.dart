@@ -67,15 +67,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
 
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Text(
-            'You have pushed the button this many times:',
-          ),
           Text(
             '$_counter',
             style: Theme.of(context).textTheme.display1,
           ),
+          generateOneLine(),
+          generateOneLine(),
           generateOneLine(),
           generateOneLine(),
         ],
