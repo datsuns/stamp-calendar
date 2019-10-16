@@ -56,8 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget generateOneDay(BuildContext context, int day) {
     var b = List<Widget>();
-    b.add(Text(day.toString()));
-    b.add(Icon(Icons.check_box));
+    b.add(Center( child:Text(day.toString())));
 
     this._dayAll[day] = b;
     //var c = Column( children: this._dayArray[day].Body() );
@@ -95,13 +94,13 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          generateOneDay(context, start + 0),
-          generateOneDay(context, start + 1),
-          generateOneDay(context, start + 2),
-          generateOneDay(context, start + 3),
-          generateOneDay(context, start + 4),
-          generateOneDay(context, start + 5),
-          generateOneDay(context, start + 6),
+          Expanded( child: generateOneDay(context, start + 0) ),
+          Expanded( child: generateOneDay(context, start + 1) ),
+          Expanded( child: generateOneDay(context, start + 2) ),
+          Expanded( child: generateOneDay(context, start + 3) ),
+          Expanded( child: generateOneDay(context, start + 4) ),
+          Expanded( child: generateOneDay(context, start + 5) ),
+          Expanded( child: generateOneDay(context, start + 6) ),
         ],
       ),
     );
@@ -122,11 +121,11 @@ class _MyHomePageState extends State<MyHomePage> {
             '$_counter',
             style: Theme.of(context).textTheme.display1,
           ),
-          generateOneWeek(context, 1),
-          generateOneWeek(context, 8),
-          generateOneWeek(context, 15),
-          generateOneWeek(context, 22),
-          generateOneWeek(context, 29),
+          Expanded( child: generateOneWeek(context, 1) ),
+          Expanded( child: generateOneWeek(context, 8) ),
+          Expanded( child: generateOneWeek(context, 15) ),
+          Expanded( child: generateOneWeek(context, 22) ),
+          Expanded( child: generateOneWeek(context, 29) ),
         ],
       )
     );
