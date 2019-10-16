@@ -50,7 +50,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget generateOneDay() {
     return GestureDetector(
-      onTap: () { print("hello"); },
+      onTap: () {
+        setState(() {
+          print("hello");
+          _counter++;
+        });
+      },
 
       child: Container(
         decoration: BoxDecoration(border: Border.all(
