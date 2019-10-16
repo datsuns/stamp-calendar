@@ -46,6 +46,23 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  Widget generateOneDay() {
+    return Container(
+      decoration: BoxDecoration(border: Border.all(
+          color: Colors.blue,
+          width: 2.0,
+        ),
+      ),
+
+      child: Column(
+        children: <Widget>[
+          Text('item1'),
+          Text('item2'),
+        ],
+      ),
+    );
+  }
+
   Widget generateOneLine() {
     return Container(
       decoration: BoxDecoration(border: Border.all(
@@ -56,10 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Text('item1'),
-          Text('item2'),
-          Text('item3'),
-          Text('item4')
+          generateOneDay(),
+          generateOneDay(),
+          generateOneDay(),
+          generateOneDay(),
         ],
       ),
     );
