@@ -47,14 +47,21 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   Widget generateOneLine() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Text('item1'),
-        Text('item2'),
-        Text('item3'),
-        Text('item4')
-      ],
+    return Container(
+      decoration: BoxDecoration(border: Border.all(
+          color: Colors.green,
+          width: 2.0,
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Text('item1'),
+          Text('item2'),
+          Text('item3'),
+          Text('item4')
+        ],
+      ),
     );
   }
 
